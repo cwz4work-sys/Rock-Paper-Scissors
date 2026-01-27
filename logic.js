@@ -13,33 +13,42 @@ function getHumanChoice() {
     return prompt('Enter rock, paper or scissors');
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
 function convertToNumber(choice) {
     return choice === 'rock' ? -1 : choice === 'paper' ? 0 : 1;
 }
 
-function playRound(humanChoice, computerChoice) {
-    const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
-    humanChoice = convertToNumber(humanChoice.toLowerCase());
-    computerChoice = convertToNumber(computerChoice);
-    let result = 'You ';
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
 
-    if (humanChoice === computerChoice) {
-        result = 'It is a draw!';
-    } else if (humanChoice - computerChoice === -1 || humanChoice - computerChoice > 1) {
-        result += 'lose!';
-        computerScore += 1;
-    } else {
-        result += 'win!';
-        humanScore += 1;
+    for (let i = 1; i <= 5; i++) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+
+        const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
+        humanChoice = convertToNumber(humanChoice.toLowerCase());
+        computerChoice = convertToNumber(computerChoice);
+        let result = 'You ';
+        
+        if (humanChoice === computerChoice) {
+            result = 'It is a draw!';
+        } else if (humanChoice - computerChoice === -1 || humanChoice - computerChoice > 1) {
+            result += 'lose!';
+            computerScore += 1;
+        } else {
+            result += 'win!';
+            humanScore += 1;
+        }
+        
+        console.log(result + ' ' + action + `\nYou: ${humanScore} | Computer: ${computerScore}`);
     }
-
-    console.log(result + ' ' + action + `\nYou: ${humanScore} | Computer: ${computerScore}`);
+    
+    if (humanScore === computerScore) {
+        console.log('The game ends in a draw!')
+    } else {
+        const winner = humanScore > computerScore ? 'you' : 'the computer';
+        console.log(`The game ends with ${winner} claiming victory!`);
+    }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
