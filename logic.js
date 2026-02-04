@@ -34,14 +34,26 @@ function playGame(humanChoice) {
         humanScore += 1;
     }
     
-    console.log(result + ' ' + action + `\nYou: ${humanScore} | Computer: ${computerScore}`);
-    
+    const body = document.querySelector('body')
+    const div = document.createElement('div');
+    body.appendChild(div);
+    const round = document.createElement('p');
+    round.textContent = result + ' ' + action;
+    const score = document.createElement('p');
+    score.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
+    round.style.textAlign = score.style.textAlign = 'center';
+    div.appendChild(round);
+    div.appendChild(score);
+
+    const match = document.createElement('p');
     if (humanScore === computerScore) {
-        console.log('The game ends in a draw!')
+        match.textContent = 'The game ends in a draw!';
     } else {
         const winner = humanScore > computerScore ? 'you' : 'the computer';
-        console.log(`The game ends with ${winner} claiming victory!`);
+        match.textContent = `The game ends with ${winner} claiming victory!`;
     }
+    match.style.textAlign = 'center';
+    div.appendChild(match);
 }
 
 const buttons = document.querySelectorAll('button');
