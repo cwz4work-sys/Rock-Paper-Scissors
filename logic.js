@@ -9,19 +9,14 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    return prompt('Enter rock, paper or scissors');
-}
-
 function convertToNumber(choice) {
     return choice === 'rock' ? -1 : choice === 'paper' ? 0 : 1;
 }
 
-function playGame() {
+function playGame(humanChoice) {
     let humanScore = 0;
     let computerScore = 0;
 
-    let humanChoice = getHumanChoice();
     let computerChoice = getComputerChoice();
 
     const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
@@ -49,4 +44,5 @@ function playGame() {
     }
 }
 
-playGame();
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', () => playGame(button.textContent)));
