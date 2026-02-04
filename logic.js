@@ -21,27 +21,25 @@ function playGame() {
     let humanScore = 0;
     let computerScore = 0;
 
-    for (let i = 1; i <= 5; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
 
-        const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
-        humanChoice = convertToNumber(humanChoice.toLowerCase());
-        computerChoice = convertToNumber(computerChoice);
-        let result = 'You ';
-        
-        if (humanChoice === computerChoice) {
-            result = 'It is a draw!';
-        } else if (humanChoice - computerChoice === -1 || humanChoice - computerChoice > 1) {
-            result += 'lose!';
-            computerScore += 1;
-        } else {
-            result += 'win!';
-            humanScore += 1;
-        }
-        
-        console.log(result + ' ' + action + `\nYou: ${humanScore} | Computer: ${computerScore}`);
+    const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
+    humanChoice = convertToNumber(humanChoice.toLowerCase());
+    computerChoice = convertToNumber(computerChoice);
+    let result = 'You ';
+    
+    if (humanChoice === computerChoice) {
+        result = 'It is a draw!';
+    } else if (humanChoice - computerChoice === -1 || humanChoice - computerChoice > 1) {
+        result += 'lose!';
+        computerScore += 1;
+    } else {
+        result += 'win!';
+        humanScore += 1;
     }
+    
+    console.log(result + ' ' + action + `\nYou: ${humanScore} | Computer: ${computerScore}`);
     
     if (humanScore === computerScore) {
         console.log('The game ends in a draw!')
