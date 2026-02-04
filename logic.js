@@ -13,12 +13,13 @@ function convertToNumber(choice) {
     return choice === 'rock' ? -1 : choice === 'paper' ? 0 : 1;
 }
 
-function playGame(humanChoice) {
-    let humanScore = 0;
-    let computerScore = 0;
-
+function playRound(humanChoice) {
+    if (humanScore === 0 && computerScore === 0) {
+        match.textContent = '';
+    }
+    
     let computerChoice = getComputerChoice();
-
+    
     const action = `You threw ${humanChoice.toLowerCase()} while the computer threw ${computerChoice}.`;
     humanChoice = convertToNumber(humanChoice.toLowerCase());
     computerChoice = convertToNumber(computerChoice);
@@ -33,28 +34,32 @@ function playGame(humanChoice) {
         result += 'win!';
         humanScore += 1;
     }
-    
-    const body = document.querySelector('body')
-    const div = document.createElement('div');
-    body.appendChild(div);
-    const round = document.createElement('p');
+
     round.textContent = result + ' ' + action;
-    const score = document.createElement('p');
     score.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
     round.style.textAlign = score.style.textAlign = 'center';
-    div.appendChild(round);
-    div.appendChild(score);
 
-    const match = document.createElement('p');
-    if (humanScore === computerScore) {
-        match.textContent = 'The game ends in a draw!';
-    } else {
+    if (humanScore >= 5 || computerScore >= 5) {
         const winner = humanScore > computerScore ? 'you' : 'the computer';
         match.textContent = `The game ends with ${winner} claiming victory!`;
+        match.style.textAlign = 'center';
+        humanScore = computerScore = 0;
     }
-    match.style.textAlign = 'center';
-    div.appendChild(match);
 }
 
+// Initialise game
+let humanScore = 0;
+let computerScore = 0;
+
+const body = document.querySelector('body')
+const div = document.createElement('div');
+body.appendChild(div);
+const round = document.createElement('p');
+const score = document.createElement('p');
+const match = document.createElement('p');
+div.appendChild(round);
+div.appendChild(score);
+div.appendChild(match);
+
 const buttons = document.querySelectorAll('button');
-buttons.forEach(button => button.addEventListener('click', () => playGame(button.textContent)));
+buttons.forEach(button => button.addEventListener('click', () => playRound(button.textContent)));
